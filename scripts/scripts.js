@@ -3,11 +3,12 @@ const addTaskForm = document.getElementById('addTaskForm');
 const taskTitleInput = document.getElementById('taskTitle');
 const taskDescriptionInput = document.getElementById('taskDescription');
 const taskStatusInput = document.getElementById('taskStatus');
+const url = 'https://myapp-backend-82xu.onrender.com/api';
 
 // Function to fetch and display users and tasks
 async function fetchData() {
   try {
-    const usersResponse = await fetch('http://localhost:5000/users');
+    const usersResponse = await fetch(`${url}/users`);
     const users = await usersResponse.json();
 
     users.forEach(async (user) => {
@@ -21,7 +22,7 @@ async function fetchData() {
       usersContainer.append(userElement)
 
       // Fetch and display tasks for each user
-      const tasksResponse = await fetch(`http://localhost:5000/tasks?userId=${user.id}`);
+      const tasksResponse = await fetch(`${url}/tasks?userId=${user.id}`);
       const tasks = await tasksResponse.json();
       const tasksContainer = document.getElementById(`tasks-${user.id}`);
 
@@ -57,7 +58,7 @@ async function toggleTaskStatus(task, taskElement) {
   task.status = newStatus;
 
   // Update the task on the server (mocked for now with JSON Server)
-  await fetch(`http://localhost:5000/tasks/${task.id}`, {
+  await fetch(`${url}/tasks/${task.id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
