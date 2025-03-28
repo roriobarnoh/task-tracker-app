@@ -85,7 +85,7 @@ addTaskForm.addEventListener('submit', async (event) => {
   };
 
   try {
-    const response = await fetch('http://localhost:5000/tasks', {
+    const response = await fetch(`${url}/tasks`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
